@@ -28,7 +28,7 @@ const Layout = () => {
         if (!error.response) {
           navigate('/coldstart')
         }
-        console.log("redirecting to login....", err.response);
+        console.log("redirecting to login....", error.response);
         navigate("/login");
       }
     };
