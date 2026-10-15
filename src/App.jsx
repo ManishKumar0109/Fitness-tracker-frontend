@@ -39,7 +39,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
         path: "onboarding",
         element: <Onboarding />,
@@ -47,21 +46,21 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "login",
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "signup",
+    path: "/signup",
     element: <SignUp />,
   },
   {
-    path: "coldstart",
+    path: "/coldstart",
     element: <ServerWakeUp />,
   },
   {
     path: "*",
     element: <NotFound />,
-  }
+  },
 ]);
 
 function App() {
