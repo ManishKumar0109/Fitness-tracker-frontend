@@ -35,14 +35,14 @@ const SignUp = () => {
         console.log(res.data , res)
         if (res.data.success) {
           saveUserInfo(res.data.data)
-          navigate("/");
+          return navigate("/");
         }
         else {
           setErrormsg(true)
         }
       } catch (error) {
         if (!error.response) {
-           navigate('/coldstart')
+           return navigate('/coldstart')
         }
         setErrormsg(true)  
       }

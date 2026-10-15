@@ -16,20 +16,20 @@ const Layout = () => {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        console.log('horseee')
+
         const res = await api.get(GET_USER_ROUTE);
-        console.log(res.data);
+
 
         if (res.data.success) {
           saveUserInfo(res.data.data);
-          console.log('tranfer to homepage  22 ...')
+          
         }
       } catch (error) {
         if (!error.response) {
-          navigate('/coldstart')
+           return navigate('/coldstart')
         }
         console.log("redirecting to login....", error.response);
-        navigate("/login");
+         return navigate("/login");
       }
     };
 

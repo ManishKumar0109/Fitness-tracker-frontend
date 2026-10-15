@@ -32,11 +32,11 @@ const Login = () => {
         
         if (res.data.success) {
           saveUserInfo(res.data.data)
-          navigate("/");
+          return navigate("/");
         }
       } catch (error) {
         if (!error.response) {
-          navigate('/coldstart')
+           return navigate('/coldstart')
         }
         setErrormsg(true);
       }
