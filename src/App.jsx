@@ -22,15 +22,15 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
           {
-            path: "/profile",
+            path: "profile",
             element: <Profile />,
           },
           {
-            path: "/foodlog",
+            path: "foodlog",
             element: <FoodLog />,
           },
           {
-            path: "/activitylog",
+            path: "activitylog",
             element: <ActivityLog />,
           },
           {
@@ -41,27 +41,27 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/onboarding",
+        path: "onboarding",
         element: <Onboarding />,
       },
     ],
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
-    path: "/signup",
+    path: "signup",
     element: <SignUp />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
   },
   {
     path: "coldstart",
     element: <ServerWakeUp />,
   },
+  {
+    path: "*",
+    element: <NotFound />,
+  }
 ]);
 
 function App() {
