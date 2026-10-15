@@ -7,7 +7,6 @@ import {
   LogOut,
 } from "lucide-react";
 
-
 import {
   Dialog,
   DialogContent,
@@ -25,20 +24,17 @@ import { useState } from "react";
 
 const ProfileCard = () => {
   const profileInfo = useStore((store) => store.profileInfo);
-  const saveProfileInfo = useStore(
-    (store) => store.saveProfileInfo
-  );
+  const userInfo = useStore((store) => store.userInfo);
+  const saveProfileInfo = useStore((store) => store.saveProfileInfo);
 
   const [age, setAge] = useState(profileInfo?.age || "");
   const [weight, setWeight] = useState(profileInfo?.weight || "");
   const [height, setHeight] = useState(profileInfo?.height || "");
   const [goal, setGoal] = useState(profileInfo?.goal ?? 0);
   const [targetintake, setTargetintake] = useState(
-    profileInfo?.targetintake || ""
+    profileInfo?.targetintake || "",
   );
-  const [targetburn, setTargetburn] = useState(
-    profileInfo?.targetburn || ""
-  );
+  const [targetburn, setTargetburn] = useState(profileInfo?.targetburn || "");
 
   const goalText = {
     0: "Lose Fat",
@@ -67,7 +63,6 @@ const ProfileCard = () => {
 
   return (
     <div className="w-full max-w-xl mx-auto mt-6 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5">
-
       {/* Header */}
       <div className="flex items-center gap-3 mb-5">
         <div className="bg-emerald-500 p-3 rounded-xl text-white">
@@ -75,9 +70,16 @@ const ProfileCard = () => {
         </div>
 
         <div>
-          <h2 className="text-white font-semibold">Your Profile</h2>
+          <h2 className="text-white font-semibold">{userInfo?.username}</h2>
+
           <p className="text-xs text-slate-400">
-            Member since 22/01/2026
+            Member since{" "}
+            {userInfo?.createdAt
+              ? new Date(userInfo.createdAt).toLocaleDateString("en-US", {
+                  month: "short",
+                  year: "numeric",
+                })
+              : "Recently"}
           </p>
         </div>
       </div>
@@ -146,9 +148,7 @@ const ProfileCard = () => {
 
         <DialogContent className="bg-slate-900 border border-slate-800 text-white sm:max-w-150">
           <DialogHeader>
-            <DialogTitle className="text-lg">
-              Edit Profile
-            </DialogTitle>
+            <DialogTitle className="text-lg">Edit Profile</DialogTitle>
 
             <DialogDescription className="text-slate-400">
               Update your profile information.
@@ -156,7 +156,6 @@ const ProfileCard = () => {
           </DialogHeader>
 
           <div className="space-y-4">
-
             {/* Age */}
             <div className="space-y-2">
               <label className="text-sm text-white">Age</label>
@@ -171,9 +170,7 @@ const ProfileCard = () => {
 
             {/* Weight */}
             <div className="space-y-2">
-              <label className="text-sm text-white">
-                Weight (kg)
-              </label>
+              <label className="text-sm text-white">Weight (kg)</label>
 
               <input
                 type="number"
@@ -185,9 +182,7 @@ const ProfileCard = () => {
 
             {/* Height */}
             <div className="space-y-2">
-              <label className="text-sm text-white">
-                Height (cm)
-              </label>
+              <label className="text-sm text-white">Height (cm)</label>
 
               <input
                 type="number"
@@ -214,9 +209,7 @@ const ProfileCard = () => {
 
             {/* Target Intake */}
             <div className="space-y-2">
-              <label className="text-sm text-white">
-                Daily Calorie Intake
-              </label>
+              <label className="text-sm text-white">Daily Calorie Intake</label>
 
               <input
                 type="number"
@@ -228,9 +221,7 @@ const ProfileCard = () => {
 
             {/* Target Burn */}
             <div className="space-y-2">
-              <label className="text-sm text-white">
-                Daily Calorie Burn
-              </label>
+              <label className="text-sm text-white">Daily Calorie Burn</label>
 
               <input
                 type="number"
@@ -242,7 +233,6 @@ const ProfileCard = () => {
 
             {/* Buttons */}
             <div className="grid grid-cols-2 gap-3 pt-2">
-
               <Button
                 type="button"
                 variant="secondary"
@@ -258,7 +248,6 @@ const ProfileCard = () => {
               >
                 Save Changes
               </Button>
-
             </div>
           </div>
         </DialogContent>
@@ -269,7 +258,6 @@ const ProfileCard = () => {
         <LogOut size={18} />
         Logout
       </button>
-
     </div>
   );
 };

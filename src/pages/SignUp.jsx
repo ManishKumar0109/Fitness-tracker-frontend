@@ -4,19 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { SIGNUP_ROUTE, HOST } from "../../constants";
 import { api } from "@/lib/api-client";
 import validator from "validator";
-import useStore from "../../store/store"
+import useStore from "../../store/store";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [isValid, setIsValid] = useState(true);
-  const [errormsg,setErrormsg]=useState(false)
+  const [errormsg, setErrormsg] = useState(false);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {saveUserInfo}=useStore();
+  const { saveUserInfo } = useStore();
 
   const handlesignup = async (e) => {
     e.preventDefault();
@@ -28,23 +28,22 @@ const SignUp = () => {
     if (!usernameError && !emailError && !passwordError) {
       try {
         const res = await api.post(`${HOST}${SIGNUP_ROUTE}`, {
-          username,
+          username: username.replace(/\s/g, ""),
           password,
           email,
         });
-        console.log(res.data , res)
+        console.log(res.data, res);
         if (res.data.success) {
-          saveUserInfo(res.data.data)
+          saveUserInfo(res.data.data);
           return navigate("/");
-        }
-        else {
-          setErrormsg(true)
+        } else {
+          setErrormsg(true);
         }
       } catch (error) {
         if (!error.response) {
-           return navigate('/coldstart')
+          return navigate("/coldstart");
         }
-        setErrormsg(true)  
+        setErrormsg(true);
       }
     } else {
       alert(
@@ -140,13 +139,17 @@ const SignUp = () => {
           </div>
 
           {!isValid ? (
-            <p className="text-red-400 pl-1">client side : Invalid credentials</p>
+            <p className="text-red-400 pl-1">
+              client side : Invalid credentials
+            </p>
           ) : (
             <span></span>
           )}
-          {
-            errormsg?<p className="text-red-400 pl-1">server side error</p>:<span></span>
-          }
+          {errormsg ? (
+            <p className="text-red-400 pl-1">server side error</p>
+          ) : (
+            <span></span>
+          )}
 
           {/* Button */}
           <button
