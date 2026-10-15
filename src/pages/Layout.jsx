@@ -14,6 +14,9 @@ const Layout = () => {
   const saveUserInfo = useStore((store) => store.saveUserInfo);
 
   useEffect(() => {
+    if (!userInfo){
+      getUserInfo();
+    }
     const getUserInfo = async () => {
       try {
 
@@ -34,7 +37,7 @@ const Layout = () => {
     };
 
     if (!userInfo) {
-      getUserInfo();
+      return <div>Loading ...</div>
     }
     
   }, [location.pathname, userInfo]);
