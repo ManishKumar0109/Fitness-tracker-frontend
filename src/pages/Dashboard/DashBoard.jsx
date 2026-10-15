@@ -2,11 +2,14 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import useStore from "../../../store/store";
 import { Activity, useEffect } from "react";
-import { GET_PROFILE_ROUTE ,GET_ACTIVITY_ROUTE ,GET_FOOD_ROUTE } from "../../../constants";
+import {
+  GET_PROFILE_ROUTE,
+  GET_ACTIVITY_ROUTE,
+  GET_FOOD_ROUTE,
+} from "../../../constants";
 import { api } from "@/lib/api-client";
 
 const DashBoard = () => {
-  window.store = useStore;
   const profileInfo = useStore((store) => store.profileInfo);
   const saveProfileInfo = useStore((store) => store.saveProfileInfo);
 
@@ -81,18 +84,20 @@ const DashBoard = () => {
     }
   }, [todayActivity, weeklyActivity]);
 
-  return (
-    profileInfo && (
-      <>
-        <div className="h-screen w-screen relative bg-[#020617] flex flex-col-reverse md:flex-row">
-          <Navbar />
+  if (!profileInfo) {
+    return <div>Loading ...</div>;
+  }
 
-          <div className="flex-1 h-full scroll-auto">
-            <Outlet />
-          </div>
+  return (
+    <>
+      <div className="h-screen w-screen relative bg-[#020617] flex flex-col-reverse md:flex-row">
+        <Navbar />
+
+        <div className="flex-1 h-full scroll-auto">
+          <Outlet />
         </div>
-      </>
-    )
+      </div>
+    </>
   );
 };
 

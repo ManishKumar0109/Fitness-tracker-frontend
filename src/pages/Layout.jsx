@@ -8,7 +8,7 @@ import { api } from "@/lib/api-client";
 const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const path=location.pathname
+
 
   const userInfo = useStore((store) => store.userInfo);
   const saveUserInfo = useStore((store) => store.saveUserInfo);
@@ -18,11 +18,8 @@ const Layout = () => {
       try {
 
         const res = await api.get(GET_USER_ROUTE);
-
-
         if (res.data.success) {
           saveUserInfo(res.data.data);
-          
         }
       } catch (error) {
         if (!error.response) {
@@ -39,7 +36,11 @@ const Layout = () => {
     
   }, [location.pathname, userInfo]);
 
-  return <>{userInfo  && <Outlet />}</>;
+  if (!userInfo){
+    return (<div>Loading ...</div>)
+  }
+
+  return (<Outlet />);
 };
 
 export default Layout;
